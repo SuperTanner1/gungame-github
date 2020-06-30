@@ -10,13 +10,13 @@ display = pygame.display.set_mode((display_width, display_height))
 clock = pygame.time.Clock()
 
 # caption and background
-background = pygame.image.load("C:\\Users\\Teaching\\Code Projects\\second_game_spaceinvaders\\background.png")
+background = pygame.image.load("background.png")
 pygame.display.set_caption('New game')
-icon = pygame.image.load("C:\\Users\\Teaching\\Code Projects\\second_game_spaceinvaders\\robot.png")
+icon = pygame.image.load("robot.png")
 pygame.display.set_icon(icon)
 
 # background music
-mixer.music.load("C:\\Users\\Teaching\\Code Projects\\background.wav")
+mixer.music.load("background.wav")
 mixer.music.play(-1)
 # Game over
 font = pygame.font.Font("freesansbold.ttf", 32)
@@ -29,7 +29,7 @@ def score(x, y):
     score_text = font.render("Score: " + str(score_value), True, (255, 255, 255))
     display.blit(score_text,(x, y))
 # Player
-player_icon = pygame.image.load("C:\\Users\\Teaching\\Code Projects\\gun game kind of\\person.png")
+player_icon = pygame.image.load("person.png")
 playerX = display_width * 0.2
 playerY = display_height * 0.2
 playerX_change = 0
@@ -38,7 +38,7 @@ def player_place(x,y):
     display.blit(player_icon, (x,y))
 
 # Gun
-gun_icon = pygame.image.load("C:\\Users\\Teaching\\Code Projects\\second_game_spaceinvaders\\weapon.png")
+gun_icon = pygame.image.load("weapon.png")
 gunX = display_width * 0.2
 gunY = display_height * 0.2
 gunX_change = 0
@@ -47,7 +47,7 @@ def gun_place(x, y):
     display.blit(gun_icon, (x + 50,y+35))
 
 # Bullet
-bullet_icon = pygame.image.load("C:\\Users\\Teaching\\Code Projects\\second_game_spaceinvaders\\bullet.png")
+bullet_icon = pygame.image.load("bullet.png")
 bulletX = display_width * 0.8
 bulletY = display_height + 64
 bulletX_change = 0
