@@ -10,13 +10,13 @@ display = pygame.display.set_mode((display_width, display_height))
 clock = pygame.time.Clock()
 
 # caption and background
-background = pygame.image.load("background.png")
+background = pygame.image.load(".\\images\\background.png")
 pygame.display.set_caption('New game')
-icon = pygame.image.load("robot.png")
+icon = pygame.image.load(".\\images\\person.png")
 pygame.display.set_icon(icon)
 
 # background music
-mixer.music.load("background.wav")
+mixer.music.load(".\\sounds\\background.wav")
 mixer.music.play(-1)
 # Game over
 font = pygame.font.Font("freesansbold.ttf", 32)
@@ -32,7 +32,7 @@ def score(x, y):
 score_milestones = {1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 50}
 
 # Player
-player_icon = pygame.image.load("person.png")
+player_icon = pygame.image.load(".\\images\\person.png")
 playerX = display_width * 0.2
 playerY = display_height * 0.2
 playerX_change = 0
@@ -41,7 +41,7 @@ def player_place(x,y):
     display.blit(player_icon, (x,y))
 
 # Gun
-gun_icon = pygame.image.load("weapon.png")
+gun_icon = pygame.image.load(".\\images\\weapon.png")
 gunX = display_width * 0.2
 gunY = display_height * 0.2
 gunX_change = 0
@@ -50,7 +50,7 @@ def gun_place(x, y):
     display.blit(gun_icon, (x + 50,y+35))
 
 # Bullet
-bullet_icon = pygame.image.load("bullet.png")
+bullet_icon = pygame.image.load(".\\images\\bullet.png")
 bulletX = display_width * 0.8
 bulletY = display_height + 64
 bulletX_change = 0
@@ -69,7 +69,7 @@ enemyX_change = []
 enemyY_change = []
 num_of_enemies = 1
 for i in range(num_of_enemies):
-    enemy_icon.append(pygame.image.load('c:\\users\\teaching\\code projects\\gun game kind of\\person.png'))
+    enemy_icon.append(pygame.image.load('.\\images\\person.png'))
     enemyX.append(random.randint(display_width * 0.7, display_width - 64))
     enemyY.append(random.randint(1, display_height - 64))
     enemyX_change.append(0)
@@ -80,7 +80,7 @@ def appendenemydetails(): # used for score effects
     global enemyY
     global enemyX_change
     global enemyY_change
-    enemy_icon.append(pygame.image.load('c:\\users\\teaching\\code projects\\gun game kind of\\person.png'))
+    enemy_icon.append(pygame.image.load('.\\images\\person.png'))
     enemyX.append(random.randint(display_width * 0.7, display_width - 64))
     enemyY.append(random.randint(1, display_height - 64))
     enemyX_change.append(0)
