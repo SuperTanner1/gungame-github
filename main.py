@@ -28,6 +28,9 @@ score_value = 0
 def score(x, y):
     score_text = font.render("Score: " + str(score_value), True, (255, 255, 255))
     display.blit(score_text,(x, y))
+
+score_milestones = {1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 50}
+
 # Player
 player_icon = pygame.image.load("person.png")
 playerX = display_width * 0.2
@@ -58,31 +61,31 @@ def fire_bullet(x , y):
     bullet_state = "fire"
     display.blit(bullet_icon, (x + 64, y + 32))
 
-# Enemies
-#enemy_icon = []
-#enemyX = []
-#enemyY = []
-#enemyX_change = []
-#enemyY_change = []
-#num_of_enemies = 20
-#for i in range(num_of_enemies):
-#    enemy_icon.append(pygame.image.load("C:\\Users\\Teaching\\Code Projects\\gun game kind of\\person.png"))
-#    enemyX.append(random.randint(display_width * 0.7, display_width - 64))
-#    enemyY.append(random.randint(1, display_height - 64))
-#    enemyX_change.append(0)
-#    enemyY_change.append(10)
+# enemy details
 enemy_icon = []
 enemyX = []
 enemyY = []
 enemyX_change = []
 enemyY_change = []
-num_of_enemies = 20
+num_of_enemies = 1
 for i in range(num_of_enemies):
     enemy_icon.append(pygame.image.load('c:\\users\\teaching\\code projects\\gun game kind of\\person.png'))
     enemyX.append(random.randint(display_width * 0.7, display_width - 64))
     enemyY.append(random.randint(1, display_height - 64))
     enemyX_change.append(0)
     enemyY_change.append(10)
+def appendenemydetails(): # used for score effects
+    global enemy_icon
+    global enemyX
+    global enemyY
+    global enemyX_change
+    global enemyY_change
+    enemy_icon.append(pygame.image.load('c:\\users\\teaching\\code projects\\gun game kind of\\person.png'))
+    enemyX.append(random.randint(display_width * 0.7, display_width - 64))
+    enemyY.append(random.randint(1, display_height - 64))
+    enemyX_change.append(0)
+    enemyY_change.append(10)
+
 
 def enemy_place(x,y, i):
     display.blit(enemy_icon[i], (x,y))
@@ -101,6 +104,58 @@ while running:
     display.fill((0, 0, 0))
     display.blit(background, (0,0))
     score(10, 10)
+
+    # Score effects try and except to stop false error breaking the game
+    try:
+        if score_value == score_milestones[1]:
+            appendenemydetails()
+            num_of_enemies += 1
+            del score_milestones[1]
+            print(score_milestones)
+    except KeyError:
+        pass
+    try:
+        if score_value == score_milestones[2]:
+            appendenemydetails()
+            num_of_enemies += 1
+            del score_milestones[2]
+            print(score_milestones)
+    except KeyError:
+        pass
+    try:
+        if score_value == score_milestones[3]:
+            appendenemydetails()
+            num_of_enemies += 1
+            del score_milestones[3]
+            print(score_milestones)
+    except KeyError:
+        pass
+    try:
+        if score_value == score_milestones[4]:
+            appendenemydetails()
+            num_of_enemies += 1
+            del score_milestones[4]
+            print(score_milestones)
+    except KeyError:
+        pass
+    try:
+        if score_value == score_milestones[5]:
+            appendenemydetails()
+            num_of_enemies += 1
+            del score_milestones[5]
+            print(score_milestones)
+    except KeyError:
+        pass
+    try:
+        if score_value == score_milestones[6]:
+            if bulletX >= display_width - 100:
+                bullet_state = "ready"
+            del score_milestones[6]
+            print(score_milestones)
+    except KeyError:
+        pass
+
+# Game Loop
     for event in pygame.event.get():
         # Quit function for when player clicks the X button
         if event.type == pygame.QUIT:
@@ -108,13 +163,13 @@ while running:
         # Tracks when arrow keys are pressed
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-                playerX_change += 5
+                playerX_change += 7
             if event.key == pygame.K_LEFT:
-                playerX_change -= 5
+                playerX_change -= 7
             if event.key == pygame.K_UP:
-                playerY_change -= 5
+                playerY_change -= 7
             if event.key == pygame.K_DOWN:
-                playerY_change += 5
+                playerY_change += 7
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
                     bullet_sound = mixer.Sound("C:\\Users\\Teaching\\Code Projects\\gun game kind of\\pew.wav")
@@ -133,13 +188,10 @@ while running:
         enemyY[i] += enemyY_change[i]
         if enemyY[i] >= display_height - 64:
             enemyX[i] -= 64
-            enemyY_change[i] = -10
+            enemyY_change[i] = -5
         if enemyY[i] <= 0:
             enemyX[i] -= 64
-            enemyY_change[i] = 10
-        if enemyX[i] <= 0:
-            enemyX[i] = random.randint(display_width * 0.7, display_width - 64)
-            enemyY[i] = random.randint(1, display_height - 64)
+            enemyY_change[i] = 5
             # Collision
         collision_bullet_enemy = isCollision_bullet_enemy(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision_bullet_enemy == True:
@@ -150,14 +202,14 @@ while running:
             bullet_state = "ready"
             score_value += 1
         collision_player_enemy = isCollision_player_enemy(playerX, playerY, enemyX[i], enemyY[i])
-        if collision_player_enemy < 27:
-            game_over(display_width * 0.5, display_height * 0.5)
+        if collision_player_enemy < 27 or enemyX[i] < 110:
             for j in range(num_of_enemies):
                 enemyY[j] = 10000
+            game_over(display_width * 0.5, display_height * 0.5)
             break
         enemy_place(enemyX[i], enemyY[i], i)
 
-    # Bullet movement
+    # Bullet fire 
     if bullet_state == "fire":
         fire_bullet(bulletX, bulletY)
         bulletX_change = 20
@@ -172,7 +224,7 @@ while running:
     if bulletY <= 0:
         bulletY = playerY + 32
 
-    # Gun
+    # Gun place
     gun_place(playerX, playerY)
 
 
