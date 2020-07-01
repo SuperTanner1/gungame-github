@@ -172,7 +172,7 @@ while running:
                 playerY_change += 7
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
-                    bullet_sound = mixer.Sound("C:\\Users\\Teaching\\Code Projects\\gun game kind of\\pew.wav")
+                    bullet_sound = mixer.Sound(".\\sounds\\pew.wav")
                     bullet_sound.play()
                     bulletX = playerX
                     bulletY = playerY
